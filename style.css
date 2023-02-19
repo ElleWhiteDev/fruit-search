@@ -1,46 +1,78 @@
 * {
-  /* box-sizing: border-box; */
+  box-sizing: border-box;
 }
 
 :focus {
- /* TODO */
+  outline: none;
 }
 
 body {
-  /* TODO */
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: #f8f8f8;
 }
 
 input {
- /* TODO */
+  font-size: 1.2rem;
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.25rem;
+  background-color: #f0f0f0;
+  color: #555;
+  margin: 0;
 }
 
 .search-container {
- /* TODO */
+  width: 80%;
+  max-width: 500px;
+  margin: 2rem auto;
+  position: relative;
 }
+
 .search-container input,
 .search-container .suggestions {
-  /* TODO */
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
 }
+
 .search-container input {
- /* TODO */
+  z-index: 2;
 }
+
 .search-container .suggestions {
-   /* TODO */
+  z-index: 1;
+  padding: 0;
 }
 
 ul {
-  /* TODO */
-}
-ul.has-suggestions {
-  /* TODO */
-}
-ul li {
-  /* TODO */
-}
-ul li:hover {
-  /* TODO */
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-top: none;
 }
 
-input {
-   /* TODO */
+ul.has-suggestions {
+  border-top: 1px solid #ddd;
+}
+
+ul li {
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+ul li:hover {
+  background-color: #f0f0f0;
+}
+
+input::placeholder {
+  color: #bbb;
+}
+
+.suggestions {
+  display: none;
 }
