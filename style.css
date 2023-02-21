@@ -26,7 +26,7 @@ input:focus{
 .search-container {
   height: 100%;
   width: 50%;
-  margin-top: 20vw;
+  margin-top: 10vw;
 }
 
 .search-container .suggestions {
