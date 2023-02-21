@@ -4,28 +4,53 @@ const suggestions = document.querySelector('.suggestions ul');
 const fruit = ['Apple', 'Apricot', 'Avocado 🥑', 'Banana', 'Bilberry', 'Blackberry', 'Blackcurrant', 'Blueberry', 'Boysenberry', 'Currant', 'Cherry', 'Coconut', 'Cranberry', 'Cucumber', 'Custard apple', 'Damson', 'Date', 'Dragonfruit', 'Durian', 'Elderberry', 'Feijoa', 'Fig', 'Gooseberry', 'Grape', 'Raisin', 'Grapefruit', 'Guava', 'Honeyberry', 'Huckleberry', 'Jabuticaba', 'Jackfruit', 'Jambul', 'Juniper berry', 'Kiwifruit', 'Kumquat', 'Lemon', 'Lime', 'Loquat', 'Longan', 'Lychee', 'Mango', 'Mangosteen', 'Marionberry', 'Melon', 'Cantaloupe', 'Honeydew', 'Watermelon', 'Miracle fruit', 'Mulberry', 'Nectarine', 'Nance', 'Olive', 'Orange', 'Clementine', 'Mandarine', 'Tangerine', 'Papaya', 'Passionfruit', 'Peach', 'Pear', 'Persimmon', 'Plantain', 'Plum', 'Pineapple', 'Pomegranate', 'Pomelo', 'Quince', 'Raspberry', 'Salmonberry', 'Rambutan', 'Redcurrant', 'Salak', 'Satsuma', 'Soursop', 'Star fruit', 'Strawberry', 'Tamarillo', 'Tamarind', 'Yuzu'];
 
 function search(str) {
-	let results = [];
+  if (str.length === 0) return [];
 
-  for (let f of fruit) {
-    if (f.toLowerCase().includes(str.toLowerCase())) {
-      results.push(f);
+  return fruit.reduce((results, fruit) => {
+    const userSearch = fruit.toLowerCase().search(str.toLowerCase());
+    if (userSearch > -1) {
+      results.push([fruit, userSearch]);
     }
-  }
-
-	return results;
+    return results;
+  }, []);
 }
 
 function searchHandler(e) {
-	// TODO
+  showSuggestions(search(input.value), input.value);
 }
+
 
 function showSuggestions(results, inputVal) {
+  if (results.length === 0) {
+    suggestions.parentElement.classList.add("invisible");
+  } else {
+    suggestions.parentElement.classList.remove("invisible");
+  }
 
-	// TODO
+  suggestions.innerHTML = "";
+
+  results.forEach((fruit) => {
+    const li = document.createElement("li");
+    const boldPart =
+      "<strong>" +
+      fruit[0].slice(fruit[1], fruit[1] + inputVal.length) +
+      "</strong>";
+    li.innerHTML =
+      fruit[0].slice(0, fruit[1]) +
+      boldPart +
+      fruit[0].slice(fruit[1] + inputVal.length);
+    suggestions.append(li);
+  });
 }
 
+
 function useSuggestion(e) {
-	// TODO
+  if (e.target.tagName === "HTML" || e.target.tagName === "BODY") {
+    suggestions.parentElement.classList.add("invisible");
+  } else if (e.target.parentElement.parentElement.className === "suggestions") {
+    input.value = e.target.innerText;
+    suggestions.parentElement.classList.add("invisible");
+  }
 }
 
 input.addEventListener('keyup', searchHandler);
