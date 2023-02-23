@@ -24,10 +24,12 @@ function search(str) {
  }, []);
 }
 
-function searchHandler(e) {
-  showSuggestions(search(input.value), input.value);
-}
 
+function searchHandler(e) {
+  const inputVal = input.value.trim();
+  const results = inputVal === '' ? [] : search(inputVal);
+  showSuggestions(results, inputVal);
+}
 
 function showSuggestions(results, inputVal) {
   if (results.length === 0) {
