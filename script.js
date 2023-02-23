@@ -25,9 +25,10 @@ function searchFruits(str, fruit) {
 
 
 function searchHandler(e) {
-  showSuggestions(search(input.value), input.value);
+  const inputVal = input.value.trim();
+  const results = inputVal === '' ? [] : search(inputVal);
+  showSuggestions(results, inputVal);
 }
-
 
 function showSuggestions(results, inputVal) {
   if (results.length === 0) {
