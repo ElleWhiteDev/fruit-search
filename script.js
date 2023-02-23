@@ -4,15 +4,24 @@ const suggestions = document.querySelector('.suggestions ul');
 const fruit = ['Apple', 'Apricot', 'Avocado 🥑', 'Banana', 'Bilberry', 'Blackberry', 'Blackcurrant', 'Blueberry', 'Boysenberry', 'Currant', 'Cherry', 'Coconut', 'Cranberry', 'Cucumber', 'Custard apple', 'Damson', 'Date', 'Dragonfruit', 'Durian', 'Elderberry', 'Feijoa', 'Fig', 'Gooseberry', 'Grape', 'Raisin', 'Grapefruit', 'Guava', 'Honeyberry', 'Huckleberry', 'Jabuticaba', 'Jackfruit', 'Jambul', 'Juniper berry', 'Kiwifruit', 'Kumquat', 'Lemon', 'Lime', 'Loquat', 'Longan', 'Lychee', 'Mango', 'Mangosteen', 'Marionberry', 'Melon', 'Cantaloupe', 'Honeydew', 'Watermelon', 'Miracle fruit', 'Mulberry', 'Nectarine', 'Nance', 'Olive', 'Orange', 'Clementine', 'Mandarine', 'Tangerine', 'Papaya', 'Passionfruit', 'Peach', 'Pear', 'Persimmon', 'Plantain', 'Plum', 'Pineapple', 'Pomegranate', 'Pomelo', 'Quince', 'Raspberry', 'Salmonberry', 'Rambutan', 'Redcurrant', 'Salak', 'Satsuma', 'Soursop', 'Star fruit', 'Strawberry', 'Tamarillo', 'Tamarind', 'Yuzu'];
 
 function search(str) {
-  if (str.length === 0) return [];
+ const userSearch = str.trim().toLowerCase();
 
-  return fruit.reduce((results, fruit) => {
-    const userSearch = fruit.toLowerCase().search(str.toLowerCase());
-    if (userSearch > -1) {
-      results.push([fruit, userSearch]);
-    }
-    return results;
-  }, []);
+ if (userSearch === "") {
+   return [];
+ }
+
+ if (/^\s+$/.test(userSearch)) {
+   return [];
+ }
+
+ return fruit.reduce((results, fruit) => {
+   const fruitName = fruit.toLowerCase();
+   const index = fruitName.indexOf(userSearch);
+   if (index > -1) {
+     results.push([fruit, index]);
+   }
+   return results;
+ }, []);
 }
 
 function searchHandler(e) {
@@ -30,16 +39,20 @@ function showSuggestions(results, inputVal) {
   suggestions.innerHTML = "";
 
   results.forEach((fruit) => {
-    const li = document.createElement("li");
-    const boldPart =
-      "<strong>" +
-      fruit[0].slice(fruit[1], fruit[1] + inputVal.length) +
-      "</strong>";
-    li.innerHTML =
-      fruit[0].slice(0, fruit[1]) +
-      boldPart +
-      fruit[0].slice(fruit[1] + inputVal.length);
-    suggestions.append(li);
+    const fruitName = fruit[0].toLowerCase();
+    const index = fruitName.indexOf(inputVal.toLowerCase());
+    if (index !== -1) {
+      const li = document.createElement("li");
+      const boldPart =
+        "<strong>" +
+        fruitName.slice(index, index + inputVal.length) +
+        "</strong>";
+      li.innerHTML =
+        fruitName.slice(0, index) +
+        boldPart +
+        fruitName.slice(index + inputVal.length);
+      suggestions.append(li);
+    }
   });
 }
 
