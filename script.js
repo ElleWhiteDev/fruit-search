@@ -7,7 +7,12 @@ function search(str) {
   if (str.length === 0) return [];
 
 function searchFruits(str, fruit) {
-  const userSearch = str.trim().toLowerCase(); 
+  const userSearch = str.trim().toLowerCase();
+  
+  if (userSearch === '') {
+    return [];
+  }
+
   return fruit.reduce((results, fruit) => {
     const fruitName = fruit.toLowerCase();
     const index = fruitName.indexOf(userSearch);
@@ -17,6 +22,7 @@ function searchFruits(str, fruit) {
     return results;
   }, []);
 }
+
 
 function searchHandler(e) {
   showSuggestions(search(input.value), input.value);
