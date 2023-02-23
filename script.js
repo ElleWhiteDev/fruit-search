@@ -13,6 +13,21 @@ function searchFruits(str, fruit) {
     return [];
   }
 
+  if (/^\s+$/.test(userSearch)) {
+    return [];
+  }
+
+  return fruit.reduce((results, fruit) => {
+    const fruitName = fruit.toLowerCase();
+    const index = fruitName.indexOf(userSearch);
+    if (index > -1) {
+      results.push([fruit, index]);
+    }
+    return results;
+  }, []);
+}
+
+
   return fruit.reduce((results, fruit) => {
     const fruitName = fruit.toLowerCase();
     const index = fruitName.indexOf(userSearch);
