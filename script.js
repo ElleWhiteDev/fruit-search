@@ -6,10 +6,13 @@ const fruit = ['Apple', 'Apricot', 'Avocado 🥑', 'Banana', 'Bilberry', 'Blackb
 function search(str) {
   if (str.length === 0) return [];
 
+function searchFruits(str, fruit) {
+  const userSearch = str.trim().toLowerCase(); 
   return fruit.reduce((results, fruit) => {
-    const userSearch = fruit.toLowerCase().search(str.toLowerCase());
-    if (userSearch > -1) {
-      results.push([fruit, userSearch]);
+    const fruitName = fruit.toLowerCase();
+    const index = fruitName.indexOf(userSearch);
+    if (index > -1) {
+      results.push([fruit, index]);
     }
     return results;
   }, []);
