@@ -39,16 +39,16 @@ function showSuggestions(results, inputVal) {
   suggestions.innerHTML = "";
 
   results.forEach((fruit) => {
-    const li = document.createElement("li");
-    const boldPart =
-      "<strong>" +
-      fruit[0].slice(fruit[1], fruit[1] + inputVal.length) +
-      "</strong>";
-    li.innerHTML =
-      fruit[0].slice(0, fruit[1]) +
-      boldPart +
-      fruit[0].slice(fruit[1] + inputVal.length);
-    suggestions.append(li);
+    const fruitName = fruit[0].toLowerCase();
+    const index = fruitName.indexOf(inputVal.toLowerCase());
+    if (index !== -1) {
+      const li = document.createElement("li");
+      const boldPart =
+        "<strong>" + fruitName.slice(index, index + inputVal.length) + "</strong>";
+      li.innerHTML =
+        fruitName.slice(0, index) + boldPart + fruitName.slice(index + inputVal.length);
+      suggestions.append(li);
+    }
   });
 }
 
