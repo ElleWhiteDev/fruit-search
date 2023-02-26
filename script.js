@@ -18,7 +18,7 @@ function search(str) {
    const fruitName = fruit.toLowerCase();
    const index = fruitName.indexOf(userSearch);
    if (index > -1) {
-     results.push([fruit, index]);
+     results.push(fruit);
    }
    return results;
  }, []);
@@ -41,8 +41,8 @@ function showSuggestions(results, inputVal) {
   suggestions.innerHTML = "";
 
   results.forEach((fruit) => {
-    const fruitName = fruit[0].toLowerCase();
-    const index = fruitName.indexOf(inputVal.toLowerCase());
+    const fruitName = fruit.toLowerCase();
+    const index = fruitName.indexOf(inputVal);
     if (index !== -1) {
       const li = document.createElement("li");
       const boldPart =
